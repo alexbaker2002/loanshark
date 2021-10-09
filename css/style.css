@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Alice&family=Open+Sans&display=swap');
+
+
 :root {
     --primary-color: #282b2f;
     --secondary-color: #FFC107;
@@ -6,9 +9,24 @@
 
 }
 
+h1 {
+    font-family: 'Alice',
+        serif;
+}
+
+
+h5 {
+    font-family: 'Open Sans',
+        sans-serif;
+}
+
+
+
 body {
     padding-top: 73px;
     color: var(--dark-color);
+    background: rgb(254, 254, 254);
+    background: linear-gradient(172deg, rgba(254, 254, 254, 1) 0%, rgba(209, 225, 240, 1) 25%, rgba(212, 196, 190, 1) 50%, rgba(191, 173, 196, 1) 75%, rgba(212, 156, 177, 1) 100%);
 
 }
 
@@ -18,11 +36,12 @@ body {
 }
 
 .mainContainer {
-
+    width: 100%;
     overflow-y: scroll;
-    max-height: 75vh;
-    margin: auto;
-    width: 80%;
+    overflow-x: hidden;
+    height: 70vh;
+    margin: 0;
+    width: 100%;
     /*border: 3px solid green;*/
     padding: 10px;
 
@@ -112,7 +131,24 @@ body {
     overflow-y: scroll;
     height: 35vh;
 }
-.codeInstructions{
-     overflow-y: scroll;
-     height: 35vh;
+
+.codeInstructions {
+    overflow-y: scroll;
+    height: 35vh;
+}
+
+
+
+/**==========================**/
+
+.monthlyPaymentsContainer {
+    z-index: -10;
+    color: rgb(20, 20, 20);
+
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.4);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    
 }
