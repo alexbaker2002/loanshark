@@ -24,33 +24,34 @@ h5 {
 
 body {
     padding-top: 73px;
+    
     color: var(--dark-color);
-    background: rgb(254, 254, 254);
-    background: linear-gradient(172deg, rgba(254, 254, 254, 1) 0%, rgba(209, 225, 240, 1) 25%, rgba(212, 196, 190, 1) 50%, rgba(191, 173, 196, 1) 75%, rgba(212, 156, 177, 1) 100%);
-
+   
 }
 
-.main>.container {
+main{
+    min-height: 88vh;
+     background: rgb(254, 254, 254);
+     background: linear-gradient(172deg, rgba(254, 254, 254, 1) 0%, rgba(209, 225, 240, 1) 25%, rgba(212, 196, 190, 1) 50%, rgba(191, 173, 196, 1) 75%, rgba(212, 156, 177, 1) 100%);
+     background-size: cover;
+     background-position: center;
+     background-repeat: no-repeat;
+}
+
+main>.container {
     padding: 60px 15px 0;
     margin: auto;
+   
 }
 
 .mainContainer {
     width: 100%;
     overflow-y: scroll;
-    overflow-x: hidden;
-    height: 70vh;
     margin: 0;
-    width: 100%;
-    /*border: 3px solid green;*/
     padding: 10px;
-
 }
 
 
-#content {
-    min-height: 89vh;
-}
 
 .navbar {
     background-color: var(--dark-color);
@@ -79,11 +80,11 @@ body {
 
 .footer {
     background-color: var(--dark-color);
+    background-size: cover;
     color: var(--white-color);
     bottom: 0;
-    position: absolute;
     width: 100%;
-    min-height: 60px;
+   
 }
 
 .footer .social>a {
@@ -150,5 +151,19 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    
+
+}
+
+
+.paymentsContainer table {
+    overflow-y: scroll;
+    border: 3px solid black;
+
+
+}
+
+/* Portrait */
+@media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 3) and (orientation: portrait) {
+
+
 }
