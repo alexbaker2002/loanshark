@@ -114,15 +114,17 @@ function calcPaymentSchedule(loanAmount, calculatedRate, term, payment) {
         if (i == numberOfPayments - 1) {
             if (balance > 0) {
                 payment += balance;
-                payment = parseFloat(payment.toFixed(2));
+                
                 balance = 0;
 
-            } else {
-
+            } 
+        }
+        if (i == numberOfPayments - 2) {
+            if (balance < payment) {
                 payment = balance;
                 balance = 0;
+
             }
-        }
 
 
 
