@@ -117,14 +117,8 @@ function calcPaymentSchedule(loanAmount, calculatedRate, term, payment) {
                 
                 balance = 0;
 
-            } 
-        }
-        if (i == numberOfPayments - 2) {
-            if (balance < payment) {
-                payment = balance;
-                balance = 0;
-
             }
+
         }
 
 
@@ -177,7 +171,7 @@ function displayPayments(loanAmount) {
     let totalInterest = schedule[schedule.length - 1].totalInterest;
 
     document.getElementById("paymentAmount").innerHTML =
-        schedule[schedule.length - 1].monthlyPayment;
+        schedule[schedule[0]].monthlyPayment;
     document.getElementById("loanAmount").innerHTML = `${createNumberString(loanAmount)}`;
 
     document.getElementById("totint").innerHTML = `${createNumberString(totalInterest)}`;
