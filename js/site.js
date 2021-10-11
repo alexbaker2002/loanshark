@@ -125,6 +125,7 @@ function calcPaymentSchedule(loanAmount, calculatedRate, term, payment) {
                 balance = 0;
 
             }
+        }
 
 
 
@@ -229,6 +230,7 @@ function disableUserinputs(){
     document.getElementById("inputInterestRate").setAttribute("disabled", "");
     document.getElementById("btnSubmit").setAttribute("disabled", "");
 }
+
 function enableUserinputs() {
     document.getElementById("inputLoanAmount").removeAttribute("disabled");
     document.getElementById("inputLoanTerm").removeAttribute("disabled");
