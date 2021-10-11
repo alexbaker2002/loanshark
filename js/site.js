@@ -200,6 +200,10 @@ function resetForm() {
             // clear form
             document.getElementById("inputForm").reset();
             document.getElementById("paymentsTableBody").innerHTML = "";
+            document.getElementById("paymentAmount").innerHTML = "";
+            document.getElementById("loanAmount").innerHTML = "";
+            document.getElementById("totint").innerHTML = "";
+            document.getElementById("total").innerHTML = "";
             schedule = [];
             enableUserinputs();
             Swal.fire(
