@@ -42,7 +42,8 @@
                         <a class="nav-link" href="/code.html">The Code</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" target="_blank" href="#">The Repo</a>
+                        <a class="nav-link" target="_blank" href="https://github.com/alexbaker2002/loanshark.git">The
+                            Repo</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" target="_blank" href="https://devalexbaker.netlify.com">About</a>
@@ -54,7 +55,7 @@
     </nav>
     <main id="content" class="flex-shrink-0 ">
         <div class="container-fluid mt-5 mainContainer">
-<!--Inputs-->
+            <!--Inputs-->
             <div class="container">
                 <div class="row topRow mt-2">
                     <div class="container-fluid">
@@ -66,13 +67,13 @@
                                 <div class="row loanAmountRow ">
                                     <div class="input-group p-2">
                                         <span class="input-group-text">Loan Amount</span>
-                                        <input class="form-control" id="inputLoanAmount" type="text"
-                                            placeholder="$" aria-label="Loan Amount" required></input>
+                                        <input class="form-control" id="inputLoanAmount" type="text" placeholder="$"
+                                            aria-label="Loan Amount" required></input>
                                     </div>
                                 </div>
                                 <div class="row termRow ">
                                     <div class="input-group p-2">
-                                        <label class="input-group-text" for="inputLoanTerm" >Loan Terms</label>
+                                        <label class="input-group-text" for="inputLoanTerm">Loan Terms</label>
                                         <select class="form-select" id="inputLoanTerm">
                                             <option value="30" selected>30 Year Fixed</option>
                                             <option value="20">20 Year Fixed</option>
@@ -84,8 +85,8 @@
                                 <div class="row interestRateRow ">
                                     <div class="input-group p-2">
                                         <span class="input-group-text">Interest Rate %</span>
-                                        <input class="form-control" id="inputInterestRate" placeholder="%"
-                                            type="text" aria-label="Loan Interest Rate " required></input>
+                                        <input class="form-control" id="inputInterestRate" placeholder="%" type="text"
+                                            aria-label="Loan Interest Rate " required></input>
                                     </div>
                                 </div>
                                 <div class="row formControlRow ">
@@ -111,7 +112,7 @@
                                 </div>
                                 <div class="row d-flex flex-column justify-content-center mt-sm-2 mt-md-5">
                                     <div class="col-12">
-                                        <h1 class="display-5 text-center">$1239.48</h1>
+                                        <h1 class="display-5 text-center" id="paymentAmount"></h1>
                                     </div>
                                 </div>
                                 <div class="row" id="totalPrincipalRow">
@@ -122,7 +123,7 @@
                                     </div>
                                     <div class="col-6 text-end">
                                         <div class="container-fluid p-0">
-                                            <h3>$500,000.00</h3>
+                                            <h3 id="loanAmount"></h3>
                                         </div>
                                     </div>
                                 </div>
@@ -134,7 +135,7 @@
                                     </div>
                                     <div class="col-6 text-end">
                                         <div class="container-fluid p-0">
-                                            <h3>$35,000.00</h3>
+                                            <h3 id="totint"></h3>
                                         </div>
                                     </div>
                                 </div>
@@ -146,7 +147,7 @@
                                     </div>
                                     <div class="col-6 text-end">
                                         <div class="container-fluid p-0">
-                                            <h3>$535,000.00</h3>
+                                            <h3 id="total"></h3>
                                         </div>
                                     </div>
                                 </div>
@@ -155,34 +156,41 @@
                     </div>
                 </div>
             </div>
-            <div class="container paymentsContainer">
+            <div class="container-fluid p-0 justify-content-center paymentsContainer">
                 <div class="row mt-2 mt-lg-5">
                     <div class="col-12 ">
-                        <!--Payments Table-->
-                       <table id="paymentsTable" class="table table-striped">
-                           <thead class="table-dark">
-                               <tr>
-                                   <th scope="col">Month</th>
-                                   <th scope="col">Payment</th>
-                                   <th scope="col">Principal</th>
-                                   <th scope="col">Interest</th>
-                                   <th scope="col">Total Interest</th>
-                                   <th scope="col">Balance</th>
-                                   <th scope="col">Paid</th>
-                               </tr>
-                           </thead>
-                           <tbody id="paymentsTableBody">
-                               <!--Payments Data goes here-->
-                               
-                           </tbody>
-                       </table>
+                        <div class="container-fluid p-1 m-0">
+
+                            <!--Payments Table-->
+                            <table id="paymentsTable" class="table table-striped">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th scope="col">Month</th>
+                                        <th scope="col">Payment</th>
+                                        <th scope="col">Principal</th>
+                                        <th scope="col">Interest</th>
+                                        <th scope="col">Total Interest</th>
+                                        <th scope="col">Balance</th>
+
+                                    </tr>
+                                </thead>
+                                <div class="container-fluid d-flex justify-content-center payschedule">
+
+                                    <tbody id="paymentsTableBody">
+
+                                        <!--Payments Data goes here-->
+
+                                    </tbody>
+                                </div>
+
+                            </table>
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </main>
-
-
 
     <footer class="footer fixed-footer py-2">
         <div class="container-fluid">
@@ -197,7 +205,7 @@
                     </span>
                 </div>
                 <div class="col d-flex justify-content-end justify-content-lg-center align-items-center">
-                    
+
                 </div>
                 <div class=" d-flex align-items-center justify-content-start justify-content-lg-end">
                     <div class="row">
@@ -212,20 +220,12 @@
     <!--Template  for results  table-->
     <template id="paymentsTableTemplate">
         <tr>
-            <tr>
-             <th scope="row" id="month" style="padding-left:30px"></th>
-             <td data-id="payment"></td>
-             <td data-id="principal"></td>
-             <td data-id="interest"></td>
-             <td data-id="totalInterest"></td>
-             <td data-id="balance"></td>
-             <td data-id="paid">
-                 <div class="form-check form-switch">
-                     <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchPaid">
-                     <label class="form-check-label" for="flexSwitchPaid"></label>
-                 </div>
-             </td>
-            </tr>
+            <th scope="row" id="month" ></th>
+            <td data-id="payment"></td>
+            <td data-id="principal"></td>
+            <td data-id="interest"></td>
+            <td data-id="totalInterest"></td>
+            <td data-id="balance"></td>
         </tr>
     </template>
     <!-- sripts - Bootstrap 5.1.1-->

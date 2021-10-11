@@ -11,6 +11,9 @@
 /**
  * 
  * payment object
+ * 
+ * 
+ * 
  * // let obj = {
  //     month:    int
  //     payment: decimal .00
@@ -24,21 +27,24 @@
  * 
  */
 
-
-
-
+var schedule = [];
 
 
 //  Mortgage Calculator
 // 1 - get user inputs 
 function getValues() {
     // get values from Input
-    let loanAmount = parseInt(document.getElementById("inputLoanAmount").value.replace(/[^0-9\.]/ig, ''));
-    let term = parseInt(document.getElementById("inputLoanTerm").value);
-    let interestRate = document.getElementById('inputInterestRate').value / 100;
+    let loanAmount = parseFloat(document.getElementById("inputLoanAmount").value.replace(/[^0-9\.]/ig, ''));
+    let term = parseFloat(document.getElementById("inputLoanTerm").value);
+    let interestRate = document.getElementById('inputInterestRate').value;
+    // clears the array
+     document.getElementById("paymentsTableBody").innerHTML = "";
+     schedule = [];
 
-    //validate inputs were given and are numbers or reset form and alertuser
-    if (isNaN(loanAmount) || isNaN(term) || isNaN(interestRate) ){
+    disableUserinputs();
+
+    //validate inputs were given and are numbers or reset form and alert user
+    if (isNaN(loanAmount) || isNaN(term) || isNaN(interestRate)) {
         document.getElementById("inputForm").reset();
         Swal.fire({
             icon: 'error',
@@ -51,19 +57,18 @@ function getValues() {
     let calculatedRate = calcRate(interestRate);
 
     let payment = calculatePayment(loanAmount, calculatedRate, term);
+    //payment = parseFloat(payment);
 
-    //let totalPayments = calcPaymentSchedule(loanAmount, calculatedRate, term, payment);
+    calcPaymentSchedule(loanAmount, calculatedRate, term, payment);
 
-   //  storePaymentSchedual();
-
-   //  displayPayments();
+    displayPayments(loanAmount);
 
 }
 
 // calclulate the interest rate  - this is the division by 1200 pdf
 function calcRate(interestRate) {
-  let rate = interestRate / 1200;
-  return rate;
+    let rate = interestRate / 1200;
+    return rate;
 }
 
 
@@ -72,9 +77,9 @@ function calculatePayment(loanAmount, calculatedRate, term) {
 
     let montlyPayment = 0;
     let months = term * 12;
-    a = loanAmount * calculatedRate ;
-    b = a / (1 - Math.pow((1 + calculatedRate) ,-months));
-    montlyPayment = b;
+    a = loanAmount * calculatedRate;
+    b = a / (1 - Math.pow((1 + calculatedRate), -months));
+    montlyPayment = parseFloat(b.toFixed(2));
     return montlyPayment;
 }
 
@@ -82,38 +87,106 @@ function calculatePayment(loanAmount, calculatedRate, term) {
 // this function is called by step 4 but you need to build it first
 // returns intrest per payment
 function calcInterest(rate, balance) {
-     let totalInterest = 0;
-     totalInterest = balance * rate;
-     return totalInterest;
+    let totalInterest = Math.round(((balance * rate) + Number.EPSILON) * 100) / 100;
+    return totalInterest;
 }
 
 
-// now that we know the rate and monthly payment we bould out our payment schedule
-// this is the big function of the application
+// now that we know the rate and monthly payment we build out our payment schedule
+
 function calcPaymentSchedule(loanAmount, calculatedRate, term, payment) {
+   
+    let numberOfPayments = term * 12;
+    let balance = loanAmount;
+    let totalI = 0;
+    let newPrincipal = 0;
+    let interestPay = 0;
+
+
+    for (let i = 0; i < numberOfPayments; i++) {
+
+        interestPay = calcInterest(calculatedRate, balance)
+        totalI = Math.round(((totalI += interestPay) + Number.EPSILON) * 100) / 100;
+        newPrincipal = Math.round(((payment - interestPay) + Number.EPSILON) * 100) / 100;
+        balance = Math.round(((balance - newPrincipal) + Number.EPSILON) * 100) / 100;
+
+
+        if (i == numberOfPayments - 1) {
+            if (balance > 0) {
+                payment += balance;
+                payment = parseFloat(payment.toFixed(2));
+                balance = 0;
+
+            } else {
+
+                payment = balance;
+                balance = 0;
+            }
+        }
 
 
 
+        let paymentRow = {
+            month: i + 1,
+            monthlyPayment: parseFloat(payment.toFixed(2)),
+            principal: parseFloat(newPrincipal.toFixed(2)),
+            interestPayment: parseFloat(interestPay.toFixed(2)),
+            totalInterest: parseFloat(totalI.toFixed(2)),
+            remainingBalance: parseFloat(balance.toFixed(2))
+
+        }
+
+        schedule.push(paymentRow)
+    }
+
+    return schedule;
 }
 
-function storePaymentSchedule(){
-let paymentSchedule = JSON.parse(localStorage.getItem("paymentSchedule")) || [];
-
-
-localStorage.setItem("paymentSchedule", JSON.stringify(paymentSchedule))
-}
 
 
 // display all of the calculated information to the payment schedule table
 // use template structure from Fizzbuzz to output your data
-function displayPayments(){
-    let paymentSchedule = localStorage.getItem("paymentSchedule") || [];
+function displayPayments(loanAmount) {
+
+
+
+    let table = document.getElementById("paymentsTable");
+    let template = document.getElementById("paymentsTableTemplate");
+    let tableBody = document.getElementById("paymentsTableBody");
+
+
+
+    schedule.forEach((i) => {
+        let row = document.importNode(template.content, true);
+        let cols = row.querySelectorAll("td");
+        let colth = row.querySelector("th");
+        colth.textContent = i.month;
+        cols[0].textContent = `${createNumberString(i.monthlyPayment)}`;
+        cols[1].textContent = `${createNumberString(i.principal)}`;
+        cols[2].textContent = `${createNumberString(i.interestPayment)}`;
+        cols[3].textContent = `${createNumberString(i.totalInterest)}`;
+        cols[4].textContent = `${createNumberString(i.remainingBalance)}`;
+
+
+        tableBody.appendChild(row);
+    })
+
+    let totalInterest = schedule[schedule.length - 1].totalInterest;
+
+    document.getElementById("paymentAmount").innerHTML =
+        schedule[schedule.length - 1].monthlyPayment;
+    document.getElementById("loanAmount").innerHTML = `${createNumberString(loanAmount)}`;
+
+    document.getElementById("totint").innerHTML = `${createNumberString(totalInterest)}`;
+    let loantotal = loanAmount + totalInterest;
+    document.getElementById("total").innerHTML = `${createNumberString(loantotal)}`;
+
 
 }
 
 
 // resets the form
-function resetForm(){
+function resetForm() {
     Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -126,10 +199,9 @@ function resetForm(){
         if (result.isConfirmed) {
             // clear form
             document.getElementById("inputForm").reset();
-            //clear local storage
-            localStorage.getItem("paymentSchedule").clear();
-            // enable inputs and button
-
+            document.getElementById("paymentsTableBody").innerHTML = "";
+            schedule = [];
+            enableUserinputs();
             Swal.fire(
                 'Deleted!',
                 'Your file has been deleted.',
@@ -138,4 +210,22 @@ function resetForm(){
         }
     })
 
+}
+
+function createNumberString(number) {
+    let str = `$ ${number.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+    return str;
+}
+
+function disableUserinputs(){
+    document.getElementById("inputLoanAmount").setAttribute("disabled", "");
+    document.getElementById("inputLoanTerm").setAttribute("disabled", "");
+    document.getElementById("inputInterestRate").setAttribute("disabled", "");
+    document.getElementById("btnSubmit").setAttribute("disabled", "");
+}
+function enableUserinputs() {
+    document.getElementById("inputLoanAmount").removeAttribute("disabled");
+    document.getElementById("inputLoanTerm").removeAttribute("disabled");
+    document.getElementById("inputInterestRate").removeAttribute("disabled");
+    document.getElementById("btnSubmit").removeAttribute("disabled");
 }

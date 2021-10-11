@@ -23,32 +23,32 @@ h5 {
 
 
 body {
-    padding-top: 73px;
-    
+    padding-top: 70px;
+
     color: var(--dark-color);
-   
+
 }
 
-main{
+main {
     min-height: 88vh;
-     background: rgb(254, 254, 254);
-     background: linear-gradient(172deg, rgba(254, 254, 254, 1) 0%, rgba(209, 225, 240, 1) 25%, rgba(212, 196, 190, 1) 50%, rgba(191, 173, 196, 1) 75%, rgba(212, 156, 177, 1) 100%);
-     background-size: cover;
-     background-position: center;
-     background-repeat: no-repeat;
+    background: rgb(254, 254, 254);
+    background: linear-gradient(172deg, rgba(254, 254, 254, 1) 0%, rgba(209, 225, 240, 1) 25%, rgba(212, 196, 190, 1) 50%, rgba(191, 173, 196, 1) 75%, rgba(212, 156, 177, 1) 100%);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 main>.container {
-    padding: 60px 15px 0;
+    /* padding: 60px 15px 0; */
     margin: auto;
-   
+
 }
 
 .mainContainer {
     width: 100%;
     overflow-y: scroll;
     margin: 0;
-    padding: 10px;
+
 }
 
 
@@ -84,7 +84,7 @@ main>.container {
     color: var(--white-color);
     bottom: 0;
     width: 100%;
-   
+
 }
 
 .footer .social>a {
@@ -142,6 +142,8 @@ main>.container {
 
 /**==========================**/
 
+
+
 .monthlyPaymentsContainer {
     z-index: -10;
     color: rgb(20, 20, 20);
@@ -154,16 +156,61 @@ main>.container {
 
 }
 
-
-.paymentsContainer table {
-    overflow-y: scroll;
-    border: 3px solid black;
-
+.paymentsContainer {
+    justify-content:center;
+    max-height:350px;
+    
 
 }
 
-/* Portrait */
-@media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 3) and (orientation: portrait) {
+.paymentsContainer thead {
+    position: sticky;
+    top: 0;
+    margin-top: 0;
+}
 
+.paymentsContainer table {
+
+    border: 3px solid black;
+    overflow-y: scroll;
+
+}
+
+
+
+
+
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
+    .paymentsContainer table tbody tr td {
+        font-size: 8px;
+        padding: 1px;
+         text-align: center;
+    }
+
+    .paymentsContainer table tbody tr th {
+        font-size: 10px;
+        padding: 1px;
+        text-align: center;
+    }
+.table>:not(caption)>*>* {
+    padding: 1px;
+    justify-content: center;
+}
+
+    .paymentsContainer table thead th {
+        font-size: 10px;
+        text-align: center;
+
+    }
+
+    .monthlyContentContainer h3 {
+        font-size: 14px;
+    }
+
+    .paymentsContainer table {
+        width: 90vw;
+
+    }
 
 }
